@@ -6,7 +6,6 @@
   package = "@netlify/plugin-nextjs"
 
 [build.environment]
-  # Override the production basePath if deploying to Netlify's root domain
-  # rather than the /assets/doh/respiratory-illness-data subpath.
-  # Uncomment and set to "" if needed:
-  # NEXT_PUBLIC_BASE_PATH = ""
+  # Tells next.config.js this is NOT the NYC agency server, so basePath and
+  # agency analytics scripts are disabled for this Netlify deployment.
+  IS_AGENCY_DEPLOY = "false"
