@@ -148,15 +148,21 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* NYC agency analytics */}
-        <Script
-          src="/assets/doh/js/agencies/agency-wt.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="/assets/home/js/webtrends/webtrends_v10.js"
-          strategy="afterInteractive"
-        />
+        {/* NYC agency analytics — only load on the agency server where these
+            files exist. NEXT_PUBLIC_BASE_PATH is non-empty only in that
+            environment; on Netlify previews it is unset, so skip them. */}
+        {process.env.NEXT_PUBLIC_BASE_PATH && (
+          <>
+            <Script
+              src="/assets/doh/js/agencies/agency-wt.js"
+              strategy="afterInteractive"
+            />
+            <Script
+              src="/assets/home/js/webtrends/webtrends_v10.js"
+              strategy="afterInteractive"
+            />
+          </>
+        )}
       </body>
     </html>
   );
