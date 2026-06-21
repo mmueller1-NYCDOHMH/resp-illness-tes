@@ -148,10 +148,12 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* NYC agency analytics — only load on the agency server where these
-            files exist. NEXT_PUBLIC_BASE_PATH is non-empty only in that
-            environment; on Netlify previews it is unset, so skip them. */}
-        {process.env.NEXT_PUBLIC_BASE_PATH && (
+        {/* NYC agency analytics — only load on the agency server.
+            IS_AGENCY_DEPLOY=false is set in netlify.toml so this block is
+            skipped on Netlify. Unset everywhere else → scripts load normally.
+            Using a plain (non-NEXT_PUBLIC) env var so it is read at runtime
+            by the Server Component, not inlined at build time. */}
+        {process.env.IS_AGENCY_DEPLOY !== 'false' && (
           <>
             <Script
               src="/assets/doh/js/agencies/agency-wt.js"
